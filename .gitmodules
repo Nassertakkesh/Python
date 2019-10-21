@@ -1,0 +1,3 @@
+[submodule "Gasgo"]
+	path = Gasgo
+	url = ./django/django_full_stack/Gasgo

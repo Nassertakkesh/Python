@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="#" />
+
+
+    <style> 
+    .borders{
+        border: solid black 3px
+    }
+    </style>
+</head>
+<body>
+        <div class="container ">
+                <h1 class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center display-4"">Random Word <small class="text-muted">(attempt # {{request.session.counter}})</small></h1>
+                <h1 class=" borders display-2 text-center">{{unique_id}}/h1>
+                <p>
+                    <form action="random_gen">
+
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value= Generate>
+                </form>
+                </p>
+              </div>
+  
+</body>
+</html>
+

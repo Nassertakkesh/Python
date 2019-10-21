@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <div class="col-md-8 mb-5 p-5">
+        <div>
+            <form action="/reset">
+                <button type="submit" class="btn btn-primary mb-2">Delete</button>
+            </form>
+        </div>
+        <h3>First Name: {{currentAuthor.first_name}}</h3>
+        <h3>Last Name: {{currentAuthor.last_name}}</h3>
+        <h3>ID: {{currentAuthor.ID}}</h3>
+        <hr>
+        <br>
+        <div>
+            <h3>Notes</h3>
+            <h6>{{currentAuthor.notes}}</h6>
+        </div>
+        <br>
+        <h3>Books</h3>
+
+        <br>
+
+        <div>
+            <ul class="list">
+                {% for book in currentAuthor.books.all %}
+                <li class="list">{{book.title}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <br>
+
+
+        <div class="row">
+            <form action="/authors/addingbook" class="col-10" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="authorsid" value="{{currentAuthor.id}}">
+                <select class="form-control col-4" id="exampleFormControlSelect1" name="jake">
+                    {% for book in books %}
+                    <option value={{book.id}}>{{book.title}}</option>
+                    {% endfor %}
+                </select>
+
+                <div>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-primary mb-2">Add</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    </div>
+</body>
+
+</html>

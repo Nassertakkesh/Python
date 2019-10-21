@@ -1,0 +1,133 @@
+ Create the Book class model
+
+class book(models.Model):
+        title = models.CharField(max_length=255)
+        desc = models.CharField(max_length=255)
+
+
+
+ Create the Author class model
+
+class author(models.Model):
+        first_name = models.CharField(max_length=255)
+        last_name = models.CharField(max_length=255)
+        books =  models.ManyToManyField(book, related_name="book")
+
+ Create and run the migration files to create the tables in your database
+
+        python3 manage.py makemigrations
+        python3 manage.py migrate
+
+ Create a .txt file where you'll save each of your queries from below
+
+        DONE
+
+
+ Query: Create 5 books with the following names: C Sharp, Java, Python, PHP, Ruby
+
+>>> from apps.SQLApp.models import*
+books = book.objects
+books.create(title ="java", desc = "a book java")
+books.create(title ="C-Sharp", desc = "a book CSHARP")
+books.create(title ="Pyhton", desc = "a book Python")
+books.create(title ="PHP", desc = "a book PHP")
+books.create(title ="Ruby", desc = "a book Ruby")
+
+
+ Query: Create 5 different authors: Jane Austen, Emily Dickinson, Fyodor Dostoevksy, William Shakespeare, Lau Tzu
+ 
+authors = author.objects
+authors.create(first_name="Jane", last_name="Austen")
+authors.create(first_name="Emily", last_name="Dickson")
+authors.create(first_name="Fyodor", last_name="Dostevksy")
+authors.create(first_name="William", last_name="Shakespeare")
+authors.create(first_name="Lau", last_name="Tzu")
+
+
+
+ Add a new text field in the authors table called 'notes'.
+            notes = models.CharField(max_length=255,default= 'notes') 
+ Create and run the migration files to update the table in your database.
+            SQLApp.author.notes: (fields.E120) CharFields must define a 'max_length' attribute.
+            (Django) Nassers-MacBook-Pro:SQLtoORM Nasser$  python3 manage.py makemigrations
+            Migrations for 'SQLApp':
+            apps/SQLApp/migrations/0009_author_notes.py:
+                - Add field notes to author
+            (Django) Nassers-MacBook-Pro:SQLtoORM Nasser$  python3 manage.py migrate
+            Operations to perform:
+            Apply all migrations: SQLApp, admin, auth, contenttypes, sessions
+            Running migrations:
+            Rendering model states... DONE
+            Applying SQLApp.0009_author_notes... OK
+            (Django) Nassers-MacBook-Pro:SQLtoORM Nasser$ python3 manage.py shell
+            Python 3.7.4 (default, Jul  9 2019, 18:13:23) 
+            [Clang 10.0.1 (clang-1001.0.46.4)] on darwin
+            Type "help", "copyright", "credits" or "license" for more information.
+            (InteractiveConsole)
+
+
+ Query: Change the name of the C Sharp book to C#
+
+        > book.objects.get(id= "2").title = "C#"
+
+ Query: Change the first name of the 4th author to Bill
+
+        >>> new
+        <Author object: Bill Shakespeare SQLApp.book.None  (4)>
+        >>> new.author.first_name = "Bill"
+        >>> new.save()
+
+ Query: Assign the first author to the first 2 books
+
+
+ Query: Assign the second author to the first 3 books
+
+        new_auth = author.objects.get(id=2)
+        new_book = book.objects.get(id=3)
+        new_auth.books.add(new_book)	
+        
+
+
+ Query: Assign the third author to the first 4 books
+
+        new_auth = author.objects.get(id=3)
+        new_book = book.objects.get(id=4)
+        new_auth.books.add(new_book)	
+
+ Query: Assign the fourth author to the first 5 books (or in other words, all the books)
+
+        new_auth = author.objects.get(id=4)
+        new_book = book.objects.get(id=5)
+        new_auth.books.add(new_book)
+
+
+ Query: Retrieve all the authors for the 3rd book
+
+        new_book = book.objects.get(id=3)
+        new_book.book.all()
+
+ Query: Remove the first author of the 3rd book
+
+
+        old_book = book.objects.get(id=3)
+        new_auth = author.objects.get(id=1)
+        old_book.book.remove(new_auth)
+
+ Query: Add the 5th author as one of the authors of the 2nd book
+
+        new_auth = author.objects.get(id=5)
+        new_book = book.objects.get(id=2)
+        new_auth.books.add(new_book)
+
+
+ Query: Find all the books that the 3rd author is part of
+
+new_auth = author.objects.get(id=3)
+new_auth.books.all()
+
+ Query: Find all the authors that contributed to the 5th book
+
+new_book = book.objects.get(id=5)
+new_book.book.all()
+
+ Submit your .txt file that contains all the queries you ran in the shell

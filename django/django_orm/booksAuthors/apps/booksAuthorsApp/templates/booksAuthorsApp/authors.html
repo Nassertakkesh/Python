@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    
+
+<div class=container >
+    
+</div>
+<!-- Page Content -->
+<div class="container">
+        <div>
+                <form action="/reset">
+                  <button type="submit" class="btn btn-primary mb-2">Delete</button>
+                </form>
+              </div>
+
+<!-- Page Heading -->
+<h1 class="my-4">Add an Author
+</h1>
+
+<div id=header></div>
+<div class="rigthside"></div>
+<div class="side"></div>
+
+<div class="row">
+        <div class="col-lg-4 mb-4">
+
+<form action="/add_authors" method="POST">
+        {% csrf_token %}
+
+        <div class="form-group">
+        <label for="exampleFormControlInput1">First Name</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" name= "first_name" placeholder="">
+        </div> 
+
+        <div class="form-group">
+        <label for="exampleFormControlInput1">Last Name</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" name= "last_name" placeholder="">
+        </div>
+
+        <div class="form-group">
+        <label for="exampleFormControlTextarea1">Notes</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="notes"></textarea>
+        </div>
+
+        <div class="col-auto">
+        <button type="submit" class="btn btn-primary mb-2">Add</button>
+
+</form>
+
+        </div>
+
+        <div class="col-lg-3 mb-4">
+            <div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 mb-4">
+
+    <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Link</th>              
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for author in allauthors %}
+                    <tr>    
+                        <td>{{author.id}} </td>
+                        <td>{{author.first_name}}</td>
+                        <td>{{author.last_name}} </td>
+                        <td><a href="/authors/{{author.id}}"> view</a> </td>
+                    </tr>
+                    {% endfor %}
+                  </tr>
+            </tbody>
+            </table>
+
+
+
+        </div>
+    
+          </div>
+
+
+
+    </div>
+      <!-- /.container -->
+    
+</body>
+</html>

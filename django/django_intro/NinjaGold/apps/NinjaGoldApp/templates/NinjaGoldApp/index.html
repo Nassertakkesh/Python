@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <style>
+
+    </style>
+</head>
+<body>
+    
+<div class="container"> 
+
+
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-left">
+                <h1 class="display-4">Count: {{request.session.counter}}</h1>
+          
+              </div>
+
+        <div class="card-deck mb-3 text-center">
+
+                <div class="card mb-4 box-shadow">
+                  <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Farm</h4>
+                  </div>
+                  <div class="card-body">
+                    <h2 class="card-title pricing-card-title">Earn 10-20 Gold</h2>
+                    <form action='/process_money' method='POST'>
+                        {% csrf_token %}
+                        <input type='submit' value='Find Gold' class="btn btn-lg btn-block btn-outline-primary" name = 'farm'>
+                        </form>
+                  </div>
+                </div>
+
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Cave</h4>
+                    </div>
+                    <div class="card-body">
+            <h2 class="card-title pricing-card-title">Earn 5-10 Gold </h2>
+                <form action='/process_money' method='POST'>
+                    {% csrf_token %}
+                <input type='submit' value='Find Gold' class="btn btn-lg btn-block btn-outline-primary" name = 'cave'>
+            </form>
+            </div>
+                </div>
+
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">House</h4>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title pricing-card-title"> (Earn 2- 5 Gold)    </h2>
+                        <form action='/process_money' method='POST'>
+                            {% csrf_token %}
+                            <input type='submit' value='Find Gold' class="btn btn-lg btn-block btn-outline-primary" name = 'house'>
+                            </form>
+                    </div>
+                </div>
+                <div class="card mb-4 box-shadow">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal">Casino</h4>
+                    </div>
+                    <div class="card-body">
+                        <h2 class="card-title pricing-card-title">Earn/Take 50 Gold </h2>
+                        <form action='/process_money' method='POST'>
+                            {% csrf_token %}
+                            <input type='submit' value='Find Gold' class="btn btn-lg btn-block btn-outline-primary" name = 'casino'>
+                            </form>
+                    </div>
+                </div>
+
+
+              </div>
+
+<div class="card">
+    <h5 class="card-header">Activities</h5>
+    <div class="card-body">
+        <p class="card-text">
+    
+        </p>
+        
+
+        <table class="table">
+        <thead>
+            <tr>
+            <th scope="col">number</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for activity in request.session.newStr%}
+            <tr>    
+                <td>You earned {{activity.num}} from the {{activity.location}} on {{activity.time}} </td>
+            </tr>
+            {% endfor %}
+        
+         
+        </tbody>
+        </table>
+
+<!-- {% now "F jS \a\t g\:i\:s  " %} -->
+
+
+    </div>
+    </div>
+</div>
+
+</body>
+</html>

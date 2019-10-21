@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+<div class="pt-3 pr-5 pl-5 pb-0 border-bottom border-dark">
+    <a href="/logout" class="text-right float-right">Log Out</a>
+    <br>
+    <a href="/addbook" class="text-right float-right">Add a Book/Review</a>
+<br>
+    <a href="/fav_books" class="text-right float-right">Fav Books</a>
+
+
+
+
+<h1 class="diplay-4"> Welcome, {{thisuser.name}} </h1>
+
+</div>
+
+{% if messages %}
+<ul class="messages">    
+{% for message in messages %}    
+<li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
+{% endfor %}
+</ul>
+{% endif %}
+
+    <div class="container p-5">
+        <div class="row">
+
+
+
+            <div class="col-sm">
+                <h2 class=""> Recent Book Reviews</h2>
+
+
+                <div class="card" >
+                    <div class="card-body">
+                        <h4>{{Book.title}}  </h4>
+                        <h6 class="card-text">{{post.message}}</h6>
+                            <div class="card" >
+                                    <div class="card-body">
+                                           
+            {% for comments in pulling_comment_data%}
+            
+            <div class="border">
+                  
+                    {% if comments.post_id.id == post.id %}
+                    <form action='/delete' method="POST">
+                        {% csrf_token %}
+                            <input class="btn btn-danger float-right" type="submit" value="Delete">
+                            <input type="hidden" name="commentingid"value={{comments.id}}>
+                    </form>
+
+                    <h6 class="card-title"> {{comments.user_id.first_name}} {{comments.user_id.last_name}} </h6>
+                    <p class="card-text">{{comments.comment}}</p>
+                  
+                    {% endif %}
+
+            </div>
+            {% endfor %}
+                                    </div>
+                            </div>
+                            <h6 class="float-right"          name="post_id">{{post.id}}</h6>
+                    </div>
+                    </div>
+</div>
+
+
+<div class="col-sm">
+<!-- BLANK AREA -->
+</div>
+
+            <div class="col-sm">
+                    <h1 class="">All Books</h1>
+
+                    <div class="card border" >
+                        {% for books in allbooks%}
+                        <div class="card-body border">
+                            <a href="book/{{books.id}}">{{books.title}}</a>
+                            <h6>(Uploaded by {{books.uploaded_by.first_name}})</h6>
+                            <!-- <a href="favorite/{{books.id}}">Like</a> -->
+        
+        
+        {% if books.users_who_fav.all|length == 0  %} 
+        <a href="favorite/{{books.id}}">Like</a>
+
+        {% else %}
+
+            {% if this_user in books.users_who_fav.all %}
+                <h6>you already faved this</h6>
+            {% else %}
+                <a href="favorite/{{books.id}}">Like</a>   
+            {% endif %}  
+           
+        {% endif %}  
+              
+        
+
+
+                    </div>
+                    {% endfor %}
+                    </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

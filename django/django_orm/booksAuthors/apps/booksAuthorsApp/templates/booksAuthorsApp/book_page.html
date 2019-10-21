@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+
+
+    <div class="col-md-8 mb-5 p-5">
+
+        <div>
+            <form action="/reset">
+                <button type="submit" class="btn btn-primary mb-2">Delete</button>
+            </form>
+        </div>
+
+        <h1>Title: {{currentbook.title}}</h1>
+        <h3>ID: {{currentbook.id}}</h3>
+        <hr>
+        <br>
+        <div>
+            <h3>Description</h3>
+            <h6>{{currentbook.desc}}</h6>
+        </div>
+        <br>
+        <h3>Authors</h3>
+
+        <div>
+            <ul class="list">
+                {% for author in currentbook.booking.all %}
+                <li class="list">{{author.first_name}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+
+        <div class="row">
+            <form action="/books/addingauthor" class="col-10" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="bookid" value="{{currentbook.id}}">
+
+                <select class="form-control col-4" id="exampleFormControlSelect1" name="authorsid">
+
+                    {% for author in authors %}
+                    <option value={{author.id}}>{{author.first_name }}</option>
+                    {% endfor %}
+                </select>
+
+                <br>
+                <div>
+                    <button type="submit" class="btn btn-primary mb-2">Add</button>
+
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+    </div>
+</body>
+
+</html>
